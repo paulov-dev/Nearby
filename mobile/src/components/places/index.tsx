@@ -3,7 +3,6 @@ import { Text, useWindowDimensions } from "react-native";
 import BottomSheet, { BottomSheetFlashList } from "@gorhom/bottom-sheet"
 
 import { Place, PlaceProps } from "../place"
-import { mayInitWithUrlAsync } from "expo-web-browser";
 import { s } from "./styles";
 
 type Props = {
