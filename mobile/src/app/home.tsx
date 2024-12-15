@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { View, Alert } from "react-native";
 import * as Location from 'expo-location';
-import MapView from "react-native-maps";
+import MapView, { Callout, Marker } from "react-native-maps";
 
 
 import { api } from "@/services/api";
@@ -12,13 +12,13 @@ import { Categories, CategoriesProps } from "@/components/categories";
 
 export default function Home(){
 
-    type MarketsProps = PlaceProps
-
     type Location = {
         latitude: number,
         longitude: number
     }
 
+    type MarketsProps = PlaceProps & Location
+    
     const [categories, setCategories] = useState<CategoriesProps>([])
     const [category, setCategory] = useState("")
     const [markets, setMarkets] = useState<MarketsProps[]>([])
@@ -91,7 +91,31 @@ export default function Home(){
                 latitudeDelta: 0.01,
                 longitudeDelta: 0.01
             }}
-        />
+        >
+            <Marker 
+            identifier="current"
+            coordinate={{
+                latitude: location.latitude,
+                longitude: location.longitude
+            }}
+            image={require("@/assets/location.png")}
+            />
+
+            {
+                markets.map(( item ) => (
+                    <Marker 
+                        key={item.id}
+                        identifier={item.id}
+                        coordinate={{
+                            latitude: item.latitude,
+                            longitude: item.longitude
+                        }}
+                        image={require("@/assets/pin.png")}
+                    />
+                ))
+            }
+
+        </MapView>
 
         <Places data={markets} />
 
