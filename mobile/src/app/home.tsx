@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { View, Alert } from "react-native";
+import { View, Alert, Text } from "react-native";
 import * as Location from 'expo-location';
 import MapView, { Callout, Marker } from "react-native-maps";
 
-
 import { api } from "@/services/api";
+import { fontFamily, colors } from "@/styles/theme";
 
 import { Places } from "@/components/places";
 import { PlaceProps } from "@/components/place";
@@ -111,7 +111,22 @@ export default function Home(){
                             longitude: item.longitude
                         }}
                         image={require("@/assets/pin.png")}
-                    />
+                    >
+
+                        <Callout >
+                            <View>
+                                <Text style={{ 
+                                    fontSize: 14, 
+                                    color: colors.gray[600], 
+                                    fontFamily: fontFamily.medium }}>{item.name}</Text>
+                                <Text style={{ 
+                                    fontSize: 12, 
+                                    color: colors.gray[600], 
+                                    fontFamily: fontFamily.regular }}>{item.address}</Text>
+                            </View>
+                        </Callout>
+
+                    </Marker>
                 ))
             }
 
